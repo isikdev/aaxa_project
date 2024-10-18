@@ -50,15 +50,17 @@ class RegisterController extends Controller
         return $user;
     }
 
-    protected function sendTelegramNotification($user)
-    {
-        $apiToken = '7207029273:AAEhbW4uLzSTLBhw06YsXbNCDpit4019GpU';  
-        $chatId = '-4520515208';  
-        $message = "Новый пользователь зарегистрировался: " . $user->email;
+protected function sendTelegramNotification($user)
+{
+    // Используем правильный API токен и chat_id
+    $apiToken = '7207029273:AAEhbW4uLzSTLBhw06YsXbNCDpit4019GpU';  
+    $chatId = '-1002314315563';  // Убедись, что chat_id правильный
+    $message = "Новый пользователь зарегистрировался: " . $user->email;
 
-        Http::post("https://api.telegram.org/bot{$apiToken}/sendMessage", [
-            'chat_id' => $chatId,
-            'text' => $message,
-        ]);
-    }
+    // Используем HTTP-клиент Laravel для отправки сообщения
+    Http::post("https://api.telegram.org/bot{$apiToken}/sendMessage", [
+        'chat_id' => $chatId,
+        'text' => $message,
+    ]);
+}
 }
